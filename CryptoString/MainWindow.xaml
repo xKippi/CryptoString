@@ -1,0 +1,32 @@
+﻿<Window x:Class="CryptoString.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CryptoString"
+        mc:Ignorable="d"
+        Title="CryptoString" Height="450" Width="375" ResizeMode="CanMinimize" Icon="lock.ico">
+    <Grid>
+        <Label Name="InputPlaceholder" HorizontalAlignment="Center" Content="Text to encrypt/decrypt" Height="30" Margin="34,25,34,0" VerticalAlignment="Top" Width="275" Foreground="#FFC7C7C7" FontSize="14" />
+        <TextBox Name="InputTextBox" HorizontalAlignment="Center" Height="30" Margin="34,25,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" TextChanged="InputTextBox_TextChanged" FontSize="14" Background="Transparent" Padding="3"/>
+
+        <Label Name="PasswordPlaceholder" HorizontalAlignment="Center" Content="Password" Height="30" Margin="34,80,34,0" VerticalAlignment="Top" Width="275" Foreground="#FFC7C7C7" FontSize="14"/>
+        <PasswordBox Name="KeyPasswordBox" HorizontalAlignment="Center" Height="30" Margin="34,80,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" FontSize="14" PasswordChanged="KeyPasswordBox_PasswordChanged" Background="Transparent" Padding="3" />
+
+        <!--Label Name="SaltPlaceholder" HorizontalAlignment="Left" Content="Salt (optional)" Height="30" Margin="-180,135,0,0" VerticalAlignment="Top" Width="145" Foreground="#FFC7C7C7" FontSize="14" RenderTransformOrigin="0.287,0.497"/>
+        <TextBox Name="SaltTextBox" HorizontalAlignment="Left" Height="30" Margin="-180,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="145" TextChanged="SaltTextBox_TextChanged" FontSize="14" Background="Transparent" Padding="3"/-->
+
+        <Button Name="EncryptButton" Content="Encrypt" HorizontalAlignment="Center" Height="40" Margin="34,0,180,140" VerticalAlignment="Bottom" Width="130" Click="EncryptButton_Click"/>
+        <Button Name="DecryptButton" Content="Decrypt" HorizontalAlignment="Center" Height="40" Margin="180,0,34,140" VerticalAlignment="Bottom" Width="130" Click="DecryptButton_Click"/>
+
+        <TextBox Name="ResultBox" Text="" IsReadOnly="True" HorizontalAlignment="Center" Height="90" Margin="34,0,34,25" VerticalAlignment="Bottom" Width="275" BorderBrush="#FF575757" BorderThickness="1" FontSize="14"/>
+
+        <Label HorizontalAlignment="Center" Height="30" Margin="34,120,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" Padding="0">
+            <Hyperlink Name="AdvancedOptionsLink" Click="AdvancedOptionsLink_Click">
+                <TextBlock Name="AdvanedOptionsLinkText" Text="▶ Advanced options" />
+            </Hyperlink>
+        </Label>
+
+        <!--ScrollBar HorizontalAlignment="Left" Margin="357,118,0,0" VerticalAlignment="Top"/-->
+    </Grid>
+</Window>
