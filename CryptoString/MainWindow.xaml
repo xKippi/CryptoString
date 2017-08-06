@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoString"
         mc:Ignorable="d"
-        Title="CryptoString" Height="450" Width="375" ResizeMode="CanMinimize" Icon="lock.ico">
+        Title="CryptoString" Height="550" Width="375" ResizeMode="CanMinimize" Icon="lock.ico">
     <Grid>
         <Label Name="InputPlaceholder" HorizontalAlignment="Center" Content="Text to encrypt/decrypt" Height="30" Margin="34,25,34,0" VerticalAlignment="Top" Width="275" Foreground="#FFC7C7C7" FontSize="14" />
         <TextBox Name="InputTextBox" HorizontalAlignment="Center" Height="30" Margin="34,25,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" TextChanged="InputTextBox_TextChanged" FontSize="14" Background="Transparent" Padding="3"/>
@@ -13,20 +13,40 @@
         <Label Name="PasswordPlaceholder" HorizontalAlignment="Center" Content="Password" Height="30" Margin="34,80,34,0" VerticalAlignment="Top" Width="275" Foreground="#FFC7C7C7" FontSize="14"/>
         <PasswordBox Name="KeyPasswordBox" HorizontalAlignment="Center" Height="30" Margin="34,80,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" FontSize="14" PasswordChanged="KeyPasswordBox_PasswordChanged" Background="Transparent" Padding="3" />
 
-        <!--Label Name="SaltPlaceholder" HorizontalAlignment="Left" Content="Salt (optional)" Height="30" Margin="-180,135,0,0" VerticalAlignment="Top" Width="145" Foreground="#FFC7C7C7" FontSize="14" RenderTransformOrigin="0.287,0.497"/>
-        <TextBox Name="SaltTextBox" HorizontalAlignment="Left" Height="30" Margin="-180,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="145" TextChanged="SaltTextBox_TextChanged" FontSize="14" Background="Transparent" Padding="3"/-->
+        <Label HorizontalAlignment="Center" Height="30" Margin="34,120,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" Padding="0">
+            <Hyperlink Name="AdvancedOptionsLink" Click="AdvancedOptionsLink_Click">
+                <TextBlock Name="AdvanedOptionsLinkText" Text="▼ Advanced options" />
+            </Hyperlink>
+        </Label>
 
+        <StackPanel Name="SaltRadioButtons" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,145,0,0" Height="60" Width="100">
+            <TextBlock FontWeight="Bold" Text="Salt"/>
+            <RadioButton Name="RandomRadio" Content="Random" Width="65" Margin="10,0,0,0" HorizontalAlignment="Left" Checked="RandomRadio_Checked" Unchecked="RandomRadio_Unchecked"/>
+            <RadioButton Name="CustomRadio" Content="Custom" Width="65" Margin="10,0,0,0" HorizontalAlignment="Left" Checked="CustomRadio_Checked" Unchecked="CustomRadio_Unchecked"/>
+            <RadioButton Name="DefaultRadio" Content="Default" Width="65" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Name="SaltEncodingRadioButtons" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="160,145,0,0" Height="60" Width="80" Visibility="Visible" IsEnabled="False">
+            <TextBlock FontWeight="Bold" Text="Salt Encoding"/>
+            <RadioButton Name="ANSIRadio" Content="ANSI" Width="65" Margin="10,0,0,0" HorizontalAlignment="Left" IsChecked="True"/>
+            <RadioButton Name="Base64Radio" Content="Base64" Width="65" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+            <RadioButton Name="HexRadio" Content="Hex" Width="65" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <Label Name="SaltPlaceholder" HorizontalAlignment="Left" Content="Salt" Height="30" Margin="60,230,0,0" VerticalAlignment="Top" Width="175" Foreground="#FFC7C7C7" FontSize="14"/>
+        <TextBox Name="SaltTextBox" HorizontalAlignment="Left" Height="30" Margin="60,230,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="175" TextChanged="SaltTextBox_TextChanged" FontSize="14" Background="#00FFFFFF" Padding="3" IsEnabled="False"/>
+
+        <TextBlock Name="SaltLengthBlock" FontWeight="Bold" Text="SaltLength:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="257,213,0,0" Background="Transparent"/>
+        <TextBox Name="SaltLengthBox" HorizontalAlignment="Left" Height="30" Margin="267,230,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="55" FontSize="14" Padding="0,0,18,0" Text="10" HorizontalContentAlignment="Right" Background="Transparent" MaxLength="4" PreviewTextInput="NumberBox_PreviewTextInput" DataObject.Pasting="NumberBox_Pasting"/>
+        <ScrollBar Name="SaltLengthScroller" HorizontalAlignment="Left" Margin="304.35,231,0,0" VerticalAlignment="Top" Width="17" Height="28.5" Scroll="NumberBox_Scroll"/>
+
+        <Label Name="IterationsLabel" Padding="0,0,0,0" VerticalContentAlignment="Center" FontWeight="Bold" Content="Number of Iterations:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,285,0,0"  Height="30" Background="Transparent"/>
+        <TextBox Name="IterationsBox" HorizontalAlignment="Left" Height="30" Margin="197,285,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="125" FontSize="14" Padding="0,0,18,0" Text="100000" HorizontalContentAlignment="Right" Background="Transparent" PreviewTextInput="NumberBox_PreviewTextInput" DataObject.Pasting="NumberBox_Pasting"/>
+        <ScrollBar Name="IterationsScroller" HorizontalAlignment="Left" Margin="304.35,286,0,0" VerticalAlignment="Top" Width="17" Height="28.5" Scroll="NumberBox_Scroll"/>
+        
         <Button Name="EncryptButton" Content="Encrypt" HorizontalAlignment="Center" Height="40" Margin="34,0,180,140" VerticalAlignment="Bottom" Width="130" Click="EncryptButton_Click"/>
         <Button Name="DecryptButton" Content="Decrypt" HorizontalAlignment="Center" Height="40" Margin="180,0,34,140" VerticalAlignment="Bottom" Width="130" Click="DecryptButton_Click"/>
 
         <TextBox Name="ResultBox" Text="" IsReadOnly="True" HorizontalAlignment="Center" Height="90" Margin="34,0,34,25" VerticalAlignment="Bottom" Width="275" BorderBrush="#FF575757" BorderThickness="1" FontSize="14"/>
-
-        <Label HorizontalAlignment="Center" Height="30" Margin="34,120,34,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="275" Padding="0">
-            <Hyperlink Name="AdvancedOptionsLink" Click="AdvancedOptionsLink_Click">
-                <TextBlock Name="AdvanedOptionsLinkText" Text="▶ Advanced options" />
-            </Hyperlink>
-        </Label>
-
-        <!--ScrollBar HorizontalAlignment="Left" Margin="357,118,0,0" VerticalAlignment="Top"/-->
     </Grid>
 </Window>
